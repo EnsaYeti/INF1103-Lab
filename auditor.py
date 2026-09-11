@@ -1,5 +1,6 @@
 quantity = 0
-real_quan = 0
+valid_quan = 0
+total = 0
 stock = 0
 
 while True:
@@ -12,8 +13,9 @@ while True:
         print("Please enter valid number as an integer")
 
     else:
-        real_quan = quantity
+        valid_quan = quantity
+        total = total + int(valid_quan)
 
-stock = str(real_quan)
+stock = str(total)
 
-print("Quantity is " +stock)
+print("Total stock is is " +stock)
