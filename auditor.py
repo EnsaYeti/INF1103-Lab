@@ -5,3 +5,11 @@ while True:
 
     if quantity == "quit":
         break
+
+    elif not quantity.isdigit():
+        print("Please enter valid number as an integer")
+
+    else:
+        real_quan = quantity
+
+print("Quantity is " +real_quan)
