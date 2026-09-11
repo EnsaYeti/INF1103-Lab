@@ -7,6 +7,7 @@ while True:
     quantity = input("Whats the quantity of the stock? (Enter 'quit' to exit): ")
 
     if quantity == "quit":
+        print ("Total stock is " +str(total))
         break
 
     elif not quantity.isdigit() or quantity < "0":
@@ -16,6 +17,8 @@ while True:
         valid_quan = quantity
         total = total + int(valid_quan)
 
-stock = str(total)
+        if total > 500:
+            print("Alert!! Total stock has exceeded 500.")
+            break
 
-print("Total stock is is " +stock)
+
