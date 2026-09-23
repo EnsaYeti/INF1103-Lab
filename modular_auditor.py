@@ -24,6 +24,10 @@ def calculate_tax(amount):
     print("Tax for this delivery is ", tax)
     return tax
 
+def generate_report(total_units, failed_attempts):
+    print("Number of Failed/Rejected entries is ", failed_attempts)
+    print("Total delieveries processed is ", + total_units)
+
 total = 0
 total_fail = 0
 
@@ -39,9 +43,8 @@ while True:
     
 
     if quantity == "quit":
-        print("Number of Failed/Rejected entries is ", total_fail)
         break
 
 
 
-print("Total delieveries processed is ", + total)
+generate_report(total, total_fail)
