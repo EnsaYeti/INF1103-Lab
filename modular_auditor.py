@@ -19,19 +19,29 @@ def process_delivery(current_total, new_value):
     total = (current_total) + (new_value)
     return total
 
+def calculate_tax(amount):
+    tax = round(amount * 0.1, 1)
+    print("Tax for this delivery is ", tax)
+    return tax
+
 total = 0
 total_fail = 0
 
 while True:
     quantity, failed_ent = get_valid_input()
     total_fail = total_fail + failed_ent
+
+    if quantity != 0 and quantity != "quit":
+        tax = calculate_tax(quantity)
+        total = process_delivery(total, quantity)
+        print("Updated number of units processed is ", + total)
+
     
 
     if quantity == "quit":
-        print("Number of failed is ", total_fail)
+        print("Number of Failed/Rejected entries is ", total_fail)
         break
 
-    total = process_delivery(total, quantity)
 
 
-print("Number of units processed is ", + total)
+print("Total delieveries processed is ", + total)
