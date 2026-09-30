@@ -32,8 +32,11 @@ def load_inventory():
     return start_amt
 
 
-total = 0
+
+transactions = []
 start_amt = load_inventory()
+transactions.extend(start_amt)
+
 print("Current Orders: ", start_amt)
 
 while True:
@@ -44,12 +47,26 @@ while True:
 
     quantity = get_valid_input()
 
-    if quantity != "quit":
-       break
+    if quantity == "quit":
+        break
+
+    if transactions:
+        for stock in transactions:
+            if stock[0] == product:
+                print("not new order")
+                stock[1] += quantity
+                break
+
+            else:
+                transactions.append([product, quantity])
+                print("New Order Added: ", product, quantity)
+                break
 
     else:
-        total = process_delivery(total, quantity)
-        print("Updated number of units processed is ", + total)
+        transactions.append([product, quantity])
+        print("List empty")
         print("New Order Added: ", product, quantity)
 
-generate_report(total)
+#generate_report(total)
+print("end")
+print(transactions)
