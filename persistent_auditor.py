@@ -18,26 +18,25 @@ def get_valid_input():
         else:
             return int(quantity)
 
-def process_delivery(current_total, new_value):
-    total = (current_total) + (new_value)
-    return total
-
 def generate_report(total_units):
     print("Total delieveries processed is ", + total_units)
 
 def load_inventory():
     with open("persist_entries.txt", "a+") as persist_file:
         persist_file.seek(0)
-        start_amt = persist_file.read()
-    return start_amt
+        transactions = persist_file.readlines()
+        persist_file.seek(0)
+        current_amt = persist_file.read()
+    return transactions, current_amt
+
+def save_inventory(prod, quant):
+    with open("persist_entries.txt", "a+") as persist_file:
+        persist_file.write(f"{prod}, {quant}\n")
+        print("\nProduct successfully saved to persist_file.txt")
 
 
-
-transactions = []
-start_amt = load_inventory()
-transactions.extend(start_amt)
-
-print("Current Orders: ", start_amt)
+transactions, current_amt = load_inventory()
+print("Current Orders: \n\n", current_amt)
 
 while True:
     product = get_valid_product()
@@ -50,23 +49,12 @@ while True:
     if quantity == "quit":
         break
 
-    if transactions:
-        for stock in transactions:
-            if stock[0] == product:
-                print("not new order")
-                stock[1] += quantity
-                break
+    transactions.append([product, quantity])
+    print(f"\nNew Order Added:\n{product}, {quantity}")
+    save_inventory(product,quantity)
 
-            else:
-                transactions.append([product, quantity])
-                print("New Order Added: ", product, quantity)
-                break
+#for item in transactions:
+   # total = sum(int(item[1]))
+    #break
 
-    else:
-        transactions.append([product, quantity])
-        print("List empty")
-        print("New Order Added: ", product, quantity)
-
-#generate_report(total)
-print("end")
 print(transactions)
