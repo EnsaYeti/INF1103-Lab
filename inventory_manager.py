@@ -1,17 +1,21 @@
+import json
+import os
+
+base_dir = os.path.dirname(os.path.abspath(__file__))
+file_name = os.path.join(base_dir, "inventory.json")
+
 def load_inventory():
-    transactions = []
-    with open("persist_entries.txt", "a+") as persist_file:
-        persist_file.seek(0)
-        for line in persist_file:
-            line = line.strip()
+    if os.path.exists(file_name):
+        try:
+            with open(file_name, "r") as f:
+                return json.load(f)
+        except json.JSONDecodeError:
+            print("Inventory file is corrupted. Starting with an empty inventory.")
+    return []
 
-            if line.startswith("9999, Total is,"):
-                continue
-
-            prod_num, prod, quant = line.split(", ")
-            transactions.append([prod_num, prod, int(quant)])
-
-    return transactions
+def save_inventory(inventory):
+    with open(file_name, "w") as f:
+        json.dump(inventory, f, indent=4)
 
 def get_valid_product():
     prod_name = input("\nEnter Product Name: ")
@@ -40,7 +44,7 @@ def get_valid_quantity():
             print("Please enter valid number as an integer")
             
         else:
-            return prod_quant
+            return int(prod_quant)
 
 def get_prod_num():
     prod_number = f"P{len(inventory) + 1:03d}"
@@ -56,7 +60,7 @@ def add_product(inventory):
 
     prod_price = get_valid_price()
 
-    prod_quant=get_valid_quantity()
+    prod_quant = get_valid_quantity()
 
     prod_number = get_prod_num()
 
@@ -79,7 +83,7 @@ def update_stock(inventory):
 
     for item in inventory:
         if item["Name"] == prod_name:
-            item["Stock"] += int(prod_quant)
+            item["Stock"] += prod_quant
             return
 
 def search_product(inventory):
@@ -97,16 +101,11 @@ def display_all(inventory):
     for item in inventory:
         print(f"{item["ID"]} | {item["Name"]} | ${item["Price"]:.2f} | Stock: {item["Stock"]}")
 
-
-import json
-
-inventory = [
-    {"ID":"P001", "Name":"Pen", "Price": 5.00, "Stock":10},
-    {"ID":"P002", "Name":"Pencil", "Price": 3.00, "Stock":5},
-    {"ID":"P003", "Name":"Eraser", "Price": 4.00, "Stock":5}
-]
+inventory = load_inventory()
 
 add_product(inventory)
 update_stock(inventory)
 search_product(inventory)
 display_all(inventory)
+
+save_inventory(inventory)
