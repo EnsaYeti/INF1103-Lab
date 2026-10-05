@@ -19,8 +19,14 @@ def save_inventory(inventory,final):
             file.write(f"{item[0]}, {item[1]}, {item[2]}\n")
         file.write(f"9999, Total is, {final}")
 
-def add_product():
+def add_product(inventory):
     prod_name = input("\nEnter Product Name: ")
+
+    for item in inventory:
+        if item["name"] == prod_name:
+            print ("Item already exists, try 'Update stock' instead.")
+            return
+
     while True:
         prod_quant = input("\nEnter Product Quantity: ")
 
@@ -28,33 +34,44 @@ def add_product():
             print("Please enter valid number as an integer")
         
         else:
-            return prod_name, int(prod_quant)
+            inventory.append(
+                    {"name": prod_name, "quantity": prod_quant}
+            )
+            break
 
-def update_stock(product, quantity, inventory):
-    inventory.append(
-        {"name": product, "quantity": quantity}
-    )
+def update_stock(inventory):
+    prod_name = input("\nEnter Product Name: ")
+    for item in inventory:
+        if item["name"] == prod_name:
+            break
+        else:
+            print("Item not found in inventory!")
+            return
 
+    while True:
+        prod_quant = input("\nEnter Product Quantity: ")
+        if not prod_quant.isdigit() or int(prod_quant) <= 0:
+            print("Please enter valid number as an integer")
 
-#transactions = load_inventory()
+        else:
+            break
 
-#for item in transactions:
-#    print(f"{item[0]}, {item[1]}, {item[2]}")
+    for item in inventory:
+        if item["name"] == prod_name:
+            item["quantity"] += int(prod_quant)
+            return
 
-#if transactions:
-#    prod_num = int(transactions[-1][0])
 
 import json
 
 inventory = [
-    {"name":"Pen", "Quantity":10},
-    {"name":"Pencil", "Quantity":5},
-    {"name":"Eraser", "Quantity":5}
+    {"name":"Pen", "quantity":10},
+    {"name":"Pencil", "quantity":5},
+    {"name":"Eraser", "quantity":5}
 ]
 
-print(inventory[0]["name"])
-
-prod_name, prod_quant = add_product()
-update_stock(prod_name, prod_quant, inventory)
+add_product(inventory)
+update_stock(inventory)
 
 print(inventory[-1]["name"])
+print(inventory[0].items())
