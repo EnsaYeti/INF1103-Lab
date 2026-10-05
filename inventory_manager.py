@@ -87,11 +87,15 @@ def search_product(inventory):
 
     for item in inventory:
         if item["Name"] == prod_name:
-            print(f"{item["ID"]} | {item["Name"]} | ${item["Price"]:.2f} | Stock: {item["Stock"]}")
+            print(f"{item["ID"]} | {item["Name"]} | ${item["Price"]:.2f} | Stock: {item["Stock"]}\n")
             return
 
     else:
         print("Product not Found!")
+
+def display_all(inventory):
+    for item in inventory:
+        print(f"{item["ID"]} | {item["Name"]} | ${item["Price"]:.2f} | Stock: {item["Stock"]}")
 
 
 import json
@@ -105,6 +109,4 @@ inventory = [
 add_product(inventory)
 update_stock(inventory)
 search_product(inventory)
-
-for item in inventory:
-    print(f"\n{item["ID"]} | {item["Name"]} | ${item["Price"]:.2f} | Stock: {item["Stock"]}")
+display_all(inventory)
