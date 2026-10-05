@@ -1,21 +1,3 @@
-def get_valid_product():
-    product = input("\nEnter Product Name (Enter 'quit' to exit): ")
-    return product
-     
-
-def get_valid_input():
-    while True:
-        quantity = input("Enter Quantity of the Product: (Enter 'quit' to exit): ")
-
-        if quantity == "quit":
-            return quantity
-
-        elif not quantity.isdigit() or int(quantity) <= 0:
-            print("Please enter valid number as an integer")
-
-        else:
-            return int(quantity)
-
 def load_inventory():
     transactions = []
     with open("persist_entries.txt", "a+") as persist_file:
@@ -37,6 +19,22 @@ def save_inventory(inventory,final):
             file.write(f"{item[0]}, {item[1]}, {item[2]}\n")
         file.write(f"9999, Total is, {final}")
 
+def add_product():
+    prod_name = input("\nEnter Product Name: ")
+    while True:
+        prod_quant = input("\nEnter Product Quantity: ")
+
+        if not prod_quant.isdigit() or int(prod_quant) <= 0:
+            print("Please enter valid number as an integer")
+        
+        else:
+            return prod_name, int(prod_quant)
+
+def update_stock(product, quantity, inventory):
+    inventory.append(
+        {"name": product, "quantity": quantity}
+    )
+
 
 #transactions = load_inventory()
 
@@ -55,3 +53,8 @@ inventory = [
 ]
 
 print(inventory[0]["name"])
+
+prod_name, prod_quant = add_product()
+update_stock(prod_name, prod_quant, inventory)
+
+print(inventory[-1]["name"])
