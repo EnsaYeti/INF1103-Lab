@@ -24,12 +24,12 @@ def get_valid_price():
         try:
             prod_price = float(price_input)
             decimals = price_input.split(".")[1] if "." in price_input else ""
-            if len(decimals) <= 2:
+            if len(decimals) <= 2 and prod_price > 0:
                 return prod_price
             else:
-                print("Too many decimal places")
+                print("Invalid input, try again")
         except ValueError:
-            print("Not a number")
+            print("Invalid input, try again")
     
 
 def get_valid_quantity():
@@ -82,6 +82,17 @@ def update_stock(inventory):
             item["Stock"] += int(prod_quant)
             return
 
+def search_product(inventory):
+    prod_name = get_valid_product()
+
+    for item in inventory:
+        if item["Name"] == prod_name:
+            print(f"{item["ID"]} | {item["Name"]} | ${item["Price"]:.2f} | Stock: {item["Stock"]}")
+            return
+
+    else:
+        print("Product not Found!")
+
 
 import json
 
@@ -93,6 +104,7 @@ inventory = [
 
 add_product(inventory)
 update_stock(inventory)
+search_product(inventory)
 
 for item in inventory:
-    print(f"{item['ID']}  {item['Name']:<10} ${item['Price']:.2f}  Stock: {item['Stock']}")
+    print(f"\n{item["ID"]} | {item["Name"]} | ${item["Price"]:.2f} | Stock: {item["Stock"]}")
