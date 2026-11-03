@@ -84,7 +84,7 @@ def update_stock(inventory):
     for item in inventory:
         if item["Name"] == prod_name:
             print("Product Found!")
-            print(f"{item["ID"]} | {item["Name"]} | ${item["Price"]:.2f} | Current Stock: {item["Stock"]}\n")
+            print(f"{item['ID']} | {item['Name']} | ${item['Price']:.2f} | Current Stock: {item['Stock']}\n")
             break 
 
     else:
@@ -96,7 +96,7 @@ def update_stock(inventory):
     for item in inventory:
         if item["Name"] == prod_name:
             item["Stock"] += prod_quant
-            print(f"New Stock Quantity: {item["Stock"]}\n")
+            print(f"New Stock Quantity: {item['Stock']}\n")
             print("Stock Updated Successfully!")
             return
 
@@ -108,7 +108,7 @@ def search_product(inventory):
         if item["Name"] == prod_name:
             print("Product Found!")
             aesthetic_lines()
-            print(f"{item["ID"]} | {item["Name"]} | ${item["Price"]:.2f} | Stock: {item["Stock"]}")
+            print(f"{item['ID']} | {item['Name']} | ${item['Price']:.2f} | Stock: {item['Stock']}")
             aesthetic_lines()
             return
 
@@ -119,7 +119,7 @@ def display_all(inventory):
     print("Current Inventory")
     aesthetic_lines()
     for item in inventory:
-        print(f"{item["ID"]} | {item["Name"]} | ${item["Price"]:.2f} | Stock: {item["Stock"]}")
+        print(f"{item['ID']} | {item['Name']} | ${item['Price']:.2f} | Stock: {item['Stock']}")
 
     if not inventory: 
         print("Inventory is Empty.")

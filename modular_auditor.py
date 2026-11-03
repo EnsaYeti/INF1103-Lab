@@ -40,11 +40,7 @@ while True:
         total = process_delivery(total, quantity)
         print("Updated number of units processed is ", + total)
 
-    
-
     if quantity == "quit":
         break
-
-
 
 generate_report(total, total_fail)

@@ -1,0 +1,26 @@
+[
+    {
+        "ID": "P001",
+        "Name": "Pen",
+        "Price": 2.45,
+        "Stock": 8
+    },
+    {
+        "ID": "P002",
+        "Name": "Pencil",
+        "Price": 1.6,
+        "Stock": 6
+    },
+    {
+        "ID": "P003",
+        "Name": "Eraser",
+        "Price": 3.0,
+        "Stock": 4
+    },
+    {
+        "ID": "P004",
+        "Name": "Calculator",
+        "Price": 23.45,
+        "Stock": 1
+    }
+]
