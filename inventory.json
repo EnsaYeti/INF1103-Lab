@@ -1,16 +1,10 @@
 [
     {
+        "Type": "physical",
         "ID": "P001",
-        "Name": "Pen",
-        "Price": 4.56,
-        "Stock": 4,
-        "Weight": 0.1
-    },
-    {
-        "ID": "P002",
-        "Name": "DigiArt 1",
-        "Price": 45.6,
+        "Name": "Table",
+        "Price": 355.6,
         "Stock": 1,
-        "Download Size": 167.0
+        "Weight": 50.0
     }
 ]

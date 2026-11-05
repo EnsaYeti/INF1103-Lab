@@ -4,6 +4,7 @@ import os
 from inventory_class import Inventory
 from PhysicalProduct_class import PhysicalProduct
 from DigitalProduct_class import DigitalProduct
+from can_be_shipped import CanBeShipped
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 file_name = os.path.join(base_dir, "inventory.json")
@@ -127,6 +128,9 @@ def add_product(inventory):
 
     inventory.add_product(product)
     print("Product added Successfully!")
+
+    if isinstance(product, CanBeShipped):
+        print(f"Shipping cost: ${product.calculate_shipping_cost():.2f}")
 
 
 def update_stock(inventory):
