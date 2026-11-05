@@ -12,8 +12,6 @@ def aesthetic_lines():
     print("------------------")
 
 
-# ---------- File handling ----------
-
 def load_inventory():
     """Build an Inventory from inventory.json if it exists, otherwise start empty."""
     inventory = Inventory()
@@ -37,8 +35,6 @@ def save_inventory(inventory):
         json.dump(inventory.to_list(), f, indent=4)
         print("Inventory saved successfully to inventory.json.")
 
-
-# ---------- User input ----------
 
 def get_valid_name():
     return input("Enter Product Name: ")
@@ -75,7 +71,6 @@ def get_option():
             return int(option)
 
 
-# ---------- Menu actions (they call Inventory/Product methods) ----------
 
 def add_product(inventory):
     print("Add New Product")

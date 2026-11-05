@@ -9,7 +9,6 @@ class Inventory:
         return True
 
     def search_product(self, name):
-        """Return the Product with this exact name, or None if not found."""
         for product in self.__products:
             if product.name == name:
                 return product
@@ -25,7 +24,6 @@ class Inventory:
         print("------------------")
 
     def generate_product_id(self):
-        """Next ID based on the highest existing number, so deletions can't cause duplicates."""
         if not self.__products:
             return "P001"
         highest = max(int(p.product_id[1:]) for p in self.__products)

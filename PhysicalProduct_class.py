@@ -11,7 +11,7 @@ class PhysicalProduct(Product):
 
     def display_information(self):
         super().display_information()
-        print(f'  Weight: {self.__weight}kg')
+        print(f'|  Weight: {self.__weight}kg')
 
     def to_dict(self):
         data = super().to_dict()
@@ -21,3 +21,6 @@ class PhysicalProduct(Product):
     @classmethod
     def from_dict(cls, data):
         return cls(data["ID"], data["Name"], data["Price"], data["Stock"], data["Weight"])
+
+    def get_fulfilment_info(self):
+        return "Physical"

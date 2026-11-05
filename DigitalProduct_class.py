@@ -21,3 +21,6 @@ class DigitalProduct(Product):
     @classmethod
     def from_dict(cls, data):
         return cls(data["ID"], data["Name"], data["Price"], data["Stock"], data["Download Size"])
+
+    def get_fulfilment_info(self):
+        return "Digital"
