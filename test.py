@@ -10,3 +10,5 @@ item2.display_information()
 
 print(item1.get_fulfilment_info())
 print(item2.get_fulfilment_info())
+
+print("Cost is " + str(item1.calculate_shipping_cost()))

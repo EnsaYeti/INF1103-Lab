@@ -1,6 +1,7 @@
 from product_class import Product
+from can_be_shipped import CanBeShipped
 
-class PhysicalProduct(Product):
+class PhysicalProduct(Product, CanBeShipped):
     def __init__(self, product_id, name, price, stock, weight):
         super().__init__(product_id, name, price, stock)
         self.__weight = weight
@@ -24,3 +25,6 @@ class PhysicalProduct(Product):
 
     def get_fulfilment_info(self):
         return "Physical"
+
+    def calculate_shipping_cost(self):
+        return 2.00 * self.__weight
