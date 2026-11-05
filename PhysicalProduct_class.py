@@ -24,7 +24,7 @@ class PhysicalProduct(Product, CanBeShipped):
         return cls(data["ID"], data["Name"], data["Price"], data["Stock"], data["Weight"])
 
     def get_fulfilment_info(self):
-        return "Physical"
+        return "physical"
 
     def calculate_shipping_cost(self):
         return 2.00 * self.__weight

@@ -23,4 +23,4 @@ class DigitalProduct(Product):
         return cls(data["ID"], data["Name"], data["Price"], data["Stock"], data["Download Size"])
 
     def get_fulfilment_info(self):
-        return "Digital"
+        return "digital"

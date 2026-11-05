@@ -33,11 +33,12 @@ class Product(ABC):
 
     def to_dict(self):
         return {
+            "Type": self.get_fulfilment_info(),
             "ID": self.__product_id,
             "Name": self.__name,
             "Price": self.__price,
             "Stock": self.__stock,
-        }
+             }
 
     @classmethod
     def from_dict(cls, data):
