@@ -1,18 +1,25 @@
 from Supplier import Supplier
 from PhysicalProduct_class import PhysicalProduct
-from DigitalProduct_class import DigitalProduct
+from inventory_class import Inventory
 
 supplier = Supplier("Agent 0", "PolandCompany", "PolishSpy@gmail.com")
 
-RaidSuit = PhysicalProduct("P001", "Raid Suit", 23001.45, 10, supplier, 20.1)
-TrojanHorse = DigitalProduct("P002", "Trojan Horse", 23.45, 25, supplier, 200.41)
+RaidSuit = PhysicalProduct("P001", "RaidSuit", 25000.45, 10, supplier, 20.1)
 
-RaidSuit.supplier.display_information()
-TrojanHorse.supplier.display_information()
+inventory_a = Inventory()
+inventory_b = Inventory()
 
-print(RaidSuit.supplier is TrojanHorse.supplier) 
+inventory_a.add_product(RaidSuit)
+print("In A:", inventory_a.find_product("P001") is RaidSuit)
 
-del supplier
+inventory_a.remove_product("P001")
+print("In A after removal:", inventory_a.find_product("P001"))
+RaidSuit.display_information()
+RaidSuit.update_stock(5)
+print("Stock:", RaidSuit.stock)
 
-RaidSuit.supplier.display_information()
-TrojanHorse.supplier.display_information()
+inventory_b.add_product(RaidSuit)
+print("In B:", inventory_b.find_product("P001") is RaidSuit)
+
+inventory_b.remove_product("P001")
+RaidSuit.display_information()

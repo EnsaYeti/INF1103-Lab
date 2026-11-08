@@ -164,6 +164,14 @@ def search_product(inventory):
     print(f"Fulfilment: {product.get_fulfilment_info()}")
     aesthetic_lines()
 
+def remove_product(inventory):
+    print("Remove Product")
+    product_id = input("Enter Product ID: ")
+    if inventory.remove_product(product_id):
+        print("Product removed from inventory.")
+    else:
+        print("Product ID not found.")
+
 
 def show_menu():
     print("-------MENU-------")
