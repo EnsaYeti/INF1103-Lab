@@ -1,6 +1,0 @@
-1000, Pen, 10
-1001, Pencil, 6
-1002, Eraser, 4
-1003, Sharpener, 2
-1004, Ruler, 1
-9999, Total is, 23

@@ -1,8 +1,9 @@
 from product_class import Product
+from Supplier import Supplier
 
 class DigitalProduct(Product):
-    def __init__(self, product_id, name, price, stock, download_size):
-        super().__init__(product_id, name, price, stock)
+    def __init__(self, product_id: str, name: str, price: float, stock: int, supplier: Supplier, download_size: float):
+        super().__init__(product_id, name, price, stock, supplier)
         self.__download_size = download_size
 
     @property
@@ -20,7 +21,8 @@ class DigitalProduct(Product):
 
     @classmethod
     def from_dict(cls, data):
-        return cls(data["ID"], data["Name"], data["Price"], data["Stock"], data["Download Size"])
+        return cls(data["ID"], data["Name"], data["Price"], data["Stock"],
+                 Supplier.from_dict(data["Supplier"]), data["Download Size"])
 
     def get_fulfilment_info(self):
         return "digital"

@@ -6,5 +6,13 @@
         "Price": 355.6,
         "Stock": 1,
         "Weight": 50.0
+    },
+    {
+        "Type": "digital",
+        "ID": "P002",
+        "Name": "DigiArt 1",
+        "Price": 68.9,
+        "Stock": 1,
+        "Download Size": 257.0
     }
 ]

@@ -1,14 +1,18 @@
-from product_class import Product
+from Supplier import Supplier
 from PhysicalProduct_class import PhysicalProduct
 from DigitalProduct_class import DigitalProduct
 
-item1 = PhysicalProduct("D01", "PolishSpy", 3.89, 4, 45.6)
-item2 = DigitalProduct("D02", "Image", 4.5, 3, 8.4)
+supplier = Supplier("Agent 0", "PolandCompany", "PolishSpy@gmail.com")
 
-item1.display_information()
-item2.display_information()
+RaidSuit = PhysicalProduct("P001", "Raid Suit", 23001.45, 10, supplier, 20.1)
+TrojanHorse = DigitalProduct("P002", "Trojan Horse", 23.45, 25, supplier, 200.41)
 
-print(item1.get_fulfilment_info())
-print(item2.get_fulfilment_info())
+RaidSuit.supplier.display_information()
+TrojanHorse.supplier.display_information()
 
-print("Cost is " + str(item1.calculate_shipping_cost()))
+print(RaidSuit.supplier is TrojanHorse.supplier) 
+
+del supplier
+
+RaidSuit.supplier.display_information()
+TrojanHorse.supplier.display_information()
