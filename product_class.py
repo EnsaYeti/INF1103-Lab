@@ -10,34 +10,34 @@ class Product(ABC):
         self.__supplier: Supplier = supplier
 
     @property
-    def product_id(self):
+    def product_id(self) -> str:
         return self.__product_id
 
     @property
-    def name(self):
+    def name(self) -> str:
         return self.__name
 
     @property
-    def price(self):
+    def price(self) -> float:
         return self.__price
 
     @property
-    def stock(self):
+    def stock(self) -> int:
         return self.__stock
 
     @property
     def supplier(self) -> Supplier:
         return self.__supplier
 
-    def update_stock(self, quantity):
+    def update_stock(self, quantity: int) -> None:
         if not isinstance(quantity, int) or quantity <= 0:
             raise ValueError("Quantity must be a positive integer.")
         self.__stock += quantity
 
-    def display_information(self):
+    def display_information(self) -> None:
         print(f'{self.__product_id} | {self.__name} | ${self.__price:.2f} | Stock: {self.__stock}')
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {
             "Type": self.get_fulfilment_info(),
             "ID": self.__product_id,
@@ -48,9 +48,9 @@ class Product(ABC):
              }
 
     @classmethod
-    def from_dict(cls, data):
+    def from_dict(cls, data: dict) -> "Product":
         return cls(data["ID"], data["Name"], data["Price"], data["Stock"], Supplier.from_dict(data["Supplier"]))
 
     @abstractmethod
-    def get_fulfilment_info(self):
+    def get_fulfilment_info(self) -> str:
         pass

@@ -29,7 +29,7 @@ class Inventory:
                 return product
         return None
 
-    def display_all(self):
+    def display_all(self) -> None:
         print("Current Inventory")
         print("------------------")
         if not self.__products:

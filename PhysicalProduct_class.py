@@ -9,25 +9,25 @@ class PhysicalProduct(Product, CanBeShipped):
         self.__weight = weight
 
     @property
-    def weight(self):
+    def weight(self) -> float:
         return self.__weight
 
-    def display_information(self):
+    def display_information(self) -> None:
         super().display_information()
         print(f'|  Weight: {self.__weight}kg')
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         data = super().to_dict()
         data["Weight"] = self.__weight
         return data
 
     @classmethod
-    def from_dict(cls, data):
+    def from_dict(cls, data: dict) -> "PhysicalProduct":
         return cls(data["ID"], data["Name"], data["Price"], data["Stock"],
                Supplier.from_dict(data["Supplier"]), data["Weight"])
 
-    def get_fulfilment_info(self):
+    def get_fulfilment_info(self) -> str:
         return "physical"
 
-    def calculate_shipping_cost(self):
+    def calculate_shipping_cost(self) -> float:
         return 2.00 * self.__weight
