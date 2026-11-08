@@ -4,6 +4,10 @@ class Inventory:
     def __init__(self):
         self.__products: list[Product] = []
 
+    @property
+    def products(self) -> list[Product]:
+        return list(self.__products)
+
     def add_product(self, product: Product) -> bool:
         if self.search_product(product.name) is not None:
             return False
