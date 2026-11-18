@@ -2,17 +2,14 @@
     {
         "Type": "physical",
         "ID": "P001",
-        "Name": "Table",
-        "Price": 355.6,
-        "Stock": 1,
-        "Weight": 50.0
-    },
-    {
-        "Type": "digital",
-        "ID": "P002",
-        "Name": "DigiArt 1",
-        "Price": 68.9,
-        "Stock": 1,
-        "Download Size": 257.0
+        "Name": "Pole",
+        "Price": Infinity,
+        "Stock": 34,
+        "Supplier": {
+            "ID": "89",
+            "Name": "Preston",
+            "Email": "prestongives@gmail.com"
+        },
+        "Weight": 45.0
     }
 ]

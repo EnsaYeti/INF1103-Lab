@@ -5,6 +5,7 @@ from inventory_class import Inventory
 from PhysicalProduct_class import PhysicalProduct
 from DigitalProduct_class import DigitalProduct
 from can_be_shipped import CanBeShipped
+from Supplier import Supplier
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 file_name = os.path.join(base_dir, "inventory.json")
@@ -84,6 +85,30 @@ def get_valid_positive_number(prompt):
             print("Invalid input, try again")
 
 
+def get_non_empty(prompt):
+    while True:
+        value = input(prompt).strip()
+        if value:
+            return value
+        print("This field cannot be empty, try again")
+
+
+def get_valid_email():
+    while True:
+        email = input("Enter Supplier Email: ").strip()
+        if "@" in email and "." in email.split("@")[-1] and " " not in email:
+            return email
+        print("Invalid email, try again")
+
+
+def get_supplier():
+    print("Supplier details")
+    supplier_id = get_non_empty("Enter Supplier ID: ")
+    name = get_non_empty("Enter Supplier Name: ")
+    email = get_valid_email()
+    return Supplier(supplier_id, name, email)
+
+
 def get_product_type():
     print("Product type:")
     print("1. physical")
@@ -118,13 +143,14 @@ def add_product(inventory):
     price = get_valid_price()
     stock = get_valid_quantity()
     product_id = inventory.generate_product_id()
+    supplier = get_supplier()
 
     if product_type == "physical":
         weight = get_valid_positive_number("Enter Product Weight (kg): ")
-        product = PhysicalProduct(product_id, name, price, stock, weight)
+        product = PhysicalProduct(product_id, name, price, stock, supplier, weight)
     else:
         size = get_valid_positive_number("Enter Download Size (MB): ")
-        product = DigitalProduct(product_id, name, price, stock, size)
+        product = DigitalProduct(product_id, name, price, stock, supplier, size)
 
     inventory.add_product(product)
     print("Product added Successfully!")
