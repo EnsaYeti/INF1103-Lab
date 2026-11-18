@@ -1,31 +1,16 @@
-from Supplier import Supplier
-from PhysicalProduct_class import PhysicalProduct
+from Order import Order
+from DiscountStrategy import BulkDiscount, PercentageDiscount
 from DigitalProduct_class import DigitalProduct
-from inventory_class import Inventory
-from product_class import Product
+from Supplier import Supplier
 
-def show_product_details(product: Product) -> None:
-    product.display_information()
-    print(product.get_fulfilment_info())
+supplier = Supplier("S001", "GarrysMachine", "GarrysMachine@gmail.com")
+product = DigitalProduct("P001", "Game", 50.0, 10, supplier, 100.0)
 
-supplier = Supplier("Agent 0", "PolandCompany", "PolishSpy@gmail.com")
+order = Order("O001")
+order.add_order_line(product, 5) 
 
-Raidsuit = PhysicalProduct("P001", "RaidSuit", 25000.45, 10, supplier, 20.1)
-TrojanHorse = DigitalProduct("P002", "TrojanHorse", 23.45, 7, supplier, 200.1)
+order.set_discount(BulkDiscount(200, 20))
+print(f"Bulk(200, 20): {order.calculate_total():.2f}")
 
-show_product_details(Raidsuit)
-show_product_details(TrojanHorse)
-
-inventory = Inventory()
-inventory.add_product(Raidsuit)
-inventory.add_product(TrojanHorse)
-inventory.display_all()
-
-for pid in ("P001", "P002"):
-    product = inventory.find_product(pid)
-    if product is not None:
-        product.update_stock(5)
-        print(product.name, "stock:", product.stock)
-
-inventory.remove_product("P002")
-print(inventory.find_product("P002"))
+order.set_discount(PercentageDiscount(10))
+print(f"Percentage(10):{order.calculate_total():.2f}")
