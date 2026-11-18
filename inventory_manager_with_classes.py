@@ -6,6 +6,7 @@ from PhysicalProduct_class import PhysicalProduct
 from DigitalProduct_class import DigitalProduct
 from can_be_shipped import CanBeShipped
 from Supplier import Supplier
+from ProductFactory import ProductFactory
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 file_name = os.path.join(base_dir, "inventory.json")
@@ -147,10 +148,12 @@ def add_product(inventory):
 
     if product_type == "physical":
         weight = get_valid_positive_number("Enter Product Weight (kg): ")
-        product = PhysicalProduct(product_id, name, price, stock, supplier, weight)
+        product = ProductFactory.create(product_type, product_id, name, price, stock,
+                                        supplier, weight=weight)
     else:
         size = get_valid_positive_number("Enter Download Size (MB): ")
-        product = DigitalProduct(product_id, name, price, stock, supplier, size)
+        product = ProductFactory.create(product_type, product_id, name, price, stock,
+                                        supplier, download_size=size)
 
     inventory.add_product(product)
     print("Product added Successfully!")

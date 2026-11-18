@@ -11,5 +11,18 @@
             "Email": "prestongives@gmail.com"
         },
         "Weight": 45.0
+    },
+    {
+        "Type": "physical",
+        "ID": "P002",
+        "Name": "Ghost",
+        "Price": 45.89,
+        "Stock": 45,
+        "Supplier": {
+            "ID": "45",
+            "Name": "Ron",
+            "Email": "RonnieMacGee@gmail.com"
+        },
+        "Weight": 67.67
     }
 ]
