@@ -24,5 +24,44 @@
             "Email": "RonnieMacGee@gmail.com"
         },
         "Weight": 67.67
+    },
+    {
+        "Type": "physical",
+        "ID": "P001",
+        "Name": "Desk Lamp",
+        "Price": 25.0,
+        "Stock": 10,
+        "Supplier": {
+            "ID": "901",
+            "Name": "Freida",
+            "Email": "ImFreedYay@gmail.com"
+        },
+        "Weight": 1.0
+    },
+    {
+        "Type": "digital",
+        "ID": "D001",
+        "Name": "Photo Editor",
+        "Price": 49.9,
+        "Stock": 100,
+        "Supplier": {
+            "ID": "901",
+            "Name": "Freida",
+            "Email": "ImFreedYay@gmail.com"
+        },
+        "Download Size": 1.0
+    },
+    {
+        "Type": "physical",
+        "ID": "P003",
+        "Name": "Monitor Stand",
+        "Price": 39.5,
+        "Stock": 7,
+        "Supplier": {
+            "ID": "901",
+            "Name": "Freida",
+            "Email": "ImFreedYay@gmail.com"
+        },
+        "Weight": 1.0
     }
 ]

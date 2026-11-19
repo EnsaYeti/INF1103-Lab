@@ -1,5 +1,7 @@
 import json
 import os
+import math
+import csv
 
 from inventory_class import Inventory
 from PhysicalProduct_class import PhysicalProduct
@@ -10,6 +12,7 @@ from ProductFactory import ProductFactory
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 file_name = os.path.join(base_dir, "inventory.json")
+products_csv = os.path.join(base_dir, "products.csv")
 
 PRODUCT_TYPES = {
     "physical": PhysicalProduct,
@@ -19,6 +22,17 @@ PRODUCT_TYPES = {
 
 def aesthetic_lines():
     print("------------------")
+
+def get_positive_float(prompt: str) -> float:
+    while True:
+        try:
+            value = float(input(prompt))
+            if not math.isfinite(value) or value <= 0:
+                print("Please enter a number greater than zero.")
+                continue
+            return value
+        except ValueError:
+            print("Please enter a valid number, e.g. 12.50")
 
 
 def product_from_dict(data):
@@ -126,7 +140,7 @@ def get_product_type():
 def get_option():
     while True:
         option = input("\nEnter option: ")
-        if not option.isdigit() or int(option) <= 0 or int(option) >= 7:
+        if not option.isdigit() or int(option) <= 0 or int(option) >= 8:
             print("Please enter a valid option")
         else:
             return int(option)
@@ -141,19 +155,23 @@ def add_product(inventory):
         print("Item already exists, try 'Update stock' instead.")
         return
 
-    price = get_valid_price()
+    price = get_positive_float("Enter Product Price: ")
     stock = get_valid_quantity()
     product_id = inventory.generate_product_id()
     supplier = get_supplier()
 
-    if product_type == "physical":
-        weight = get_valid_positive_number("Enter Product Weight (kg): ")
-        product = ProductFactory.create(product_type, product_id, name, price, stock,
-                                        supplier, weight=weight)
-    else:
-        size = get_valid_positive_number("Enter Download Size (MB): ")
-        product = ProductFactory.create(product_type, product_id, name, price, stock,
-                                        supplier, download_size=size)
+    try:
+        if product_type == "physical":
+            weight = get_positive_float("Enter Product Weight (kg): ")
+            product = ProductFactory.create(product_type, product_id, name, price, stock,
+                                            supplier, weight=weight)
+        else:
+            size = get_positive_float("Enter Download Size (MB): ")
+            product = ProductFactory.create(product_type, product_id, name, price, stock,
+                                            supplier, download_size=size)
+    except ValueError as error:
+        print(f"Could not add product: {error}")
+        return
 
     inventory.add_product(product)
     print("Product added Successfully!")
@@ -201,6 +219,45 @@ def remove_product(inventory):
     else:
         print("Product ID not found.")
 
+DEFAULT_WEIGHT_KG = 1.0
+DEFAULT_DOWNLOAD_SIZE_MB = 1.0
+
+def load_products(path: str, inventory: Inventory, supplier: Supplier) -> None:
+    try:
+        file = open(path, newline="")
+    except FileNotFoundError:
+        print(f"Products file not found: {path}")
+    else:
+        loaded = 0
+        with file:
+            reader = csv.reader(file)
+            next(reader, None)  # skip the header row
+            for line_number, row in enumerate(reader, start=2):
+                if not row:
+                    continue
+                try:
+                    product_type, product_id, name, price, stock = row
+                    product = ProductFactory.create(
+                        product_type.strip(), product_id.strip(), name.strip(),
+                        float(price), int(stock), supplier,
+                        weight=DEFAULT_WEIGHT_KG,
+                        download_size=DEFAULT_DOWNLOAD_SIZE_MB,
+                    )
+                except ValueError as error:
+                    print(f"Skipped line {line_number} {row}: {error}")
+                    continue
+                if inventory.add_product(product):
+                    loaded += 1
+                else:
+                    print(f"Skipped line {line_number}: '{name}' already exists.")
+        print(f"{loaded} products loaded.")
+    finally:
+        print("Load attempt finished.")
+
+def load_products_from_csv(inventory):
+    print("Load Products from CSV")
+    supplier = get_supplier()
+    load_products(products_csv, inventory, supplier)
 
 def show_menu():
     print("-------MENU-------")
@@ -209,7 +266,8 @@ def show_menu():
     print("3. Update Stock")
     print("4. Search Product")
     print("5. Save Inventory")
-    print("6. Exit without saving (since last save)")
+    print("6. Load Products from CSV")
+    print("7. Exit without saving (since last save)")
     aesthetic_lines()
 
 
@@ -232,11 +290,12 @@ def main():
             search_product(inventory)
         elif option == 5:
             save_inventory(inventory)
+        elif option == 6:
+            load_products_from_csv(inventory)
         else:
             break
 
     print("Thank you for using Inventory Management System.\nProgram terminated.")
-
 
 if __name__ == "__main__":
     main()
